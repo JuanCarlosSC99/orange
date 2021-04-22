@@ -1,9 +1,9 @@
 import { CardSongComponent } from '../components/card-song/card-song.component';
-import { TrackCardObject, TracksObject } from '../model/interface/tracks';
+import { TrackCard, Tracks } from '../model/interface/tracks';
 
 
-export interface storeTrack{
-  trackData:TracksObject | null
+export interface StoreTrack{
+  trackData:Tracks | null
   urlSong: string
-  trackCardObject: {on: boolean , status : boolean }
+  trackCard: {on: boolean , status : boolean }
 }

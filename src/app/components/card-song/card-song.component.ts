@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { storeTrack } from 'src/app/store/store.structure';
+import { StoreTrack } from 'src/app/store/store.structure';
 import { Router } from '@angular/router';
 import { PauseAction, PlayAction } from 'src/app/store/track.action';
-import { TracksObject } from 'src/app/model/interface/tracks';
+import { Tracks } from 'src/app/model/interface/tracks';
 
 
 @Component({
@@ -13,25 +13,25 @@ import { TracksObject } from 'src/app/model/interface/tracks';
 })
 export class CardSongComponent implements OnInit {
 
-  @Input() data: TracksObject;
+  @Input() data: Tracks;
   @Output() onPlay: EventEmitter<any> = new EventEmitter()
   public status: { hasData: boolean, isPause: boolean }
   public loadding =  false
 
   constructor
-    (private store: Store<{ track: storeTrack }>,private router: Router) {}
+    (private store: Store<{ track: StoreTrack }>,private router: Router) {}
 
   ngOnInit(): void { this.start() }
 
   start(){
-    this.store.select('track').subscribe((x) => {
+    this.store.select('track').subscribe((track) => {
       this.status = { hasData: false, isPause: true }
-      if (typeof x.trackData  != undefined &&
+      if (typeof track.trackData  != undefined &&
           typeof this.data !=  undefined   &&
-          x.trackData != null
+          track.trackData != null
           ) {
-        if (x.trackData.id == this.data.id) {
-          this.status = { hasData: x.trackCardObject.on, isPause: !x.trackCardObject.status }
+        if (track.trackData.id == this.data.id) {
+          this.status = { hasData: track.trackCard.on, isPause: !track.trackCard.status }
           this.loadding = false;
         }
       }

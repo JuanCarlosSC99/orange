@@ -10,13 +10,13 @@ export class NavComponent implements OnInit {
   public on =false
   constructor(private router:Router) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
+  
   see(){
     this.on = !this.on
   }
-  find(x){
-      this.router.navigate(['',x])
+  find(text: string){
+      this.router.navigate(['',text])
   }
 
 }

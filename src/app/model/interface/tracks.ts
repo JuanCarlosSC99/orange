@@ -1,4 +1,4 @@
-export interface TracksObject {
+export interface Tracks {
       artwork_url: string;
   		id: number,
   		purchase_url: string,
@@ -12,7 +12,7 @@ export interface TracksObject {
   		},
       favoritings_count: number,
 }
-export interface TrackCardObject {
+export interface TrackCard {
   stream:boolean,
   timeSongbuffer:any
 }
@@ -27,7 +27,7 @@ export interface TrackComment {
     id: number,
     username: string,
     avatar_url:string
-  },
+  }
 }
 
 

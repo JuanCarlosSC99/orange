@@ -1,6 +1,6 @@
 
-import { TracksObject } from '../../model/interface/tracks';
-import { storeTrack } from './../../store/store.structure';
+import { Tracks } from '../../model/interface/tracks';
+import { StoreTrack } from './../../store/store.structure';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
 
@@ -14,22 +14,21 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
 
   public on: boolean = false;
-  public data:TracksObject;
-  public url
+  public data:Tracks;
+  public url: string;
   public find: string;
 
-  constructor(private store: Store<{ track:storeTrack }>,){
-    this.store.select('track').subscribe((x) =>{
-      if(x.trackCardObject){
-        this.on = x.trackCardObject.on
-        this.data = x.trackData
-        this.url = x.urlSong
+  constructor(private store: Store<{ track:StoreTrack }>){ }
+
+  ngOnInit(): void {
+    this.store.select('track').subscribe((track) =>{
+      if(track.trackCard){
+        this.on = track.trackCard.on
+        this.data = track.trackData
+        this.url = track.urlSong
       }else{
-        this.on = x.trackCardObject.on
+        this.on = track.trackCard.on
       }
      });
-
   }
-
-  ngOnInit(): void {}
 }

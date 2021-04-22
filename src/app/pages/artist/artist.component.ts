@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TracksObject } from 'src/app/model/interface/tracks';
+import { Tracks } from 'src/app/model/interface/tracks';
 import { User } from 'src/app/model/interface/user';
 import { TracksService } from 'src/app/services/tracks.service';
 
@@ -12,7 +12,7 @@ import { TracksService } from 'src/app/services/tracks.service';
 })
 export class ArtistComponent implements OnInit {
   public id:number
-  public userData:{userData:User , userTracks:TracksObject[]}
+  public userData:{user:User , userTracks:Tracks[]}
   public loadding = false;
 
   constructor(private track: TracksService, private route: ActivatedRoute ) {
@@ -24,11 +24,11 @@ export class ArtistComponent implements OnInit {
   }
 
 
-  getDataUser(id){
+  getDataUser(id: number | string){
     this.loadding = true;
     this.track.getDataUser(id).subscribe(
-      ([userData,userTracks])=>{
-        this.userData = {userData, userTracks}
+      ([user, userTracks])=>{
+        this.userData = { user, userTracks }
         this.loadding = false;
       }
     )

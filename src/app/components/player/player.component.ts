@@ -1,7 +1,7 @@
-import { TracksObject } from '../../model/interface/tracks';
+import { Tracks } from '../../model/interface/tracks';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { storeTrack } from 'src/app/store/store.structure';
+import { StoreTrack } from 'src/app/store/store.structure';
 import { PauseAction, PlayAction } from 'src/app/store/track.action';
 import { Router } from '@angular/router';
 
@@ -13,11 +13,11 @@ import { Router } from '@angular/router';
 export class PlayerComponent implements OnInit, AfterViewInit {
   @ViewChild("audioPlayer") audio:ElementRef<HTMLAudioElement>
   public url:string
-  public data:TracksObject
+  public data:Tracks
   public status :{hasData:boolean , isPause:boolean}
 
 
-  constructor(private store: Store<{ track: storeTrack }>,private router: Router,) {}
+  constructor(private store: Store<{ track: StoreTrack }>,private router: Router,) {}
 
   ngOnInit(): void {
     this.start()
@@ -27,13 +27,13 @@ export class PlayerComponent implements OnInit, AfterViewInit {
   }
 
   start(){
-    this.store.select('track').subscribe((x) => {
+    this.store.select('track').subscribe((track) => {
       this.status = {hasData:false,isPause:true}
-      if (x.trackData) {
-        this.data = x.trackData;
-        this.url =  x.urlSong;
-        if (x.trackData.id == this.data.id) {
-          this.status = {hasData:x.trackCardObject.on,isPause:!x.trackCardObject.status}
+      if (track.trackData) {
+        this.data = track.trackData;
+        this.url =  track.urlSong;
+        if (track.trackData.id == this.data.id) {
+          this.status = {hasData:track.trackCard.on,isPause:!track.trackCard.status}
           if (this.audio !=  undefined){
             this.status.isPause ? this.audio.nativeElement.pause(): this.audio.nativeElement.play();
           }

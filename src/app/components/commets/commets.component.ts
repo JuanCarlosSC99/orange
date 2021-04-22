@@ -1,5 +1,5 @@
 import { Store } from '@ngrx/store';
-import { storeTrack } from 'src/app/store/store.structure';
+import { StoreTrack } from 'src/app/store/store.structure';
 import { TrackComment } from '../../model/interface/tracks';
 import { Component, Input, OnInit } from '@angular/core';
 import { TracksService } from 'src/app/services/tracks.service';
@@ -12,16 +12,16 @@ import { TracksService } from 'src/app/services/tracks.service';
 export class CommetsComponent implements OnInit {
   public arrayComment:TrackComment[] = [];
 
-  constructor(public track: TracksService,private store: Store<{ track: storeTrack }>  ) {
-    this.store.select('track').subscribe((x)=>{
-      this.getCommet(x.trackData.id)
+  constructor(public track: TracksService,private store: Store<{ track: StoreTrack }>  ) {
+    this.store.select('track').subscribe((track)=>{
+      this.getCommet(track.trackData.id)
     })
   }
 
   ngOnInit(): void {}
 
-  getCommet(id){
-    this.track.getComment(id,15).subscribe((x:TrackComment[])=>{this.arrayComment = x})
+  getCommet(id: number){
+    this.track.getComment(id,15).subscribe((comments:TrackComment[])=>{this.arrayComment = comments})
   }
 }
 

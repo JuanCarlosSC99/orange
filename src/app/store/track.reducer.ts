@@ -1,36 +1,36 @@
 
 import { LOAD, PAUSE, PLAY } from 'src/app/store/track.action';
 import { ActionsTrack } from './track.action';
-import { storeTrack } from './store.structure';
+import { StoreTrack } from './store.structure';
 
-const inictialState:storeTrack = {
+const inictialState:StoreTrack = {
   trackData: null,
-  trackCardObject:{on:false ,status:false},
+  trackCard:{on:false ,status:false},
   urlSong: ''
 }
 
-export function trackReducer(state:storeTrack = inictialState, action: ActionsTrack  ){
+export function trackReducer(state:StoreTrack = inictialState, action: ActionsTrack  ){
   console.log('10')
   switch (action.type) {
 
     case LOAD:
       return  {
         trackData:action.payload.trackData,
-        trackCardObject:action.payload.trackCardObject,
+        trackCardObject:action.payload.trackCard,
         urlSong:action.payload.urlSong
       }
   ////////////////////
     case PAUSE:
       return {
         trackData: state.trackData,
-        trackCardObject:{on: state.trackCardObject.on , status:false} ,
+        trackCardObject:{on: state.trackCard.on , status:false} ,
         urlSong: state.urlSong
       }
   // /////////////////////////
     case PLAY:
       return {
         trackData: state.trackData,
-        trackCardObject:{on: state.trackCardObject.on , status:true} ,
+        trackCardObject:{on: state.trackCard.on , status:true} ,
         urlSong: state.urlSong
       }
 

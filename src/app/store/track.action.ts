@@ -1,4 +1,4 @@
-import { storeTrack } from './store.structure';
+import { StoreTrack } from './store.structure';
 import { Action } from '@ngrx/store';
 
 
@@ -12,7 +12,7 @@ export const PAUSE = '[track] Pause';
 
 export class LoadAction implements Action  {
   readonly type = LOAD;
-  constructor(public payload:storeTrack) {}
+  constructor(public payload:StoreTrack) {}
 }
 
 export class PlayAction implements Action  {

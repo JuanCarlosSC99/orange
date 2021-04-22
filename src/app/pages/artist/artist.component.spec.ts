@@ -1,4 +1,4 @@
-import { TracksObject } from 'src/app/model/interface/tracks';
+import { Tracks } from 'src/app/model/interface/tracks';
 import { User } from './../../model/interface/user';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -43,7 +43,7 @@ describe('ArtistComponent', () => {
         component = new ArtistComponent( service, route);
     });
 
-    it("Obtener el id de los params de la url y asignarlo a la propiedad 'id'", () => {
+    it("Debe obtener el id de los params de la url y asignarlo a la propiedad 'id'", () => {
         expect( component.id ).toEqual(84);
     })
 
@@ -58,7 +58,7 @@ describe('ArtistComponent', () => {
             followers_count: 55,
         }
 
-        let tracks:TracksObject[] = [
+        let tracks:Tracks[] = [
             {
                 artwork_url: 'artwork_url',
                 id: 1,
@@ -79,7 +79,7 @@ describe('ArtistComponent', () => {
 
         component.ngOnInit();
 
-        expect( component.userData.userData ).toBe( user );
+        expect( component.userData.user ).toBe( user );
         expect( component.userData.userTracks ).toBe( tracks );
     })
     
