@@ -2,9 +2,9 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { combineLatest, Observable, Subscriber } from 'rxjs';
-import { user } from '../model/interface/user';
+import { User } from '../model/interface/user';
 import { TracksObject } from '../model/interface/tracks';
-type NewType = user;
+type NewType = User;
 
 @Injectable({
   providedIn: 'root'
@@ -36,14 +36,14 @@ export class TracksService {
     }
     return this.http.get(this.endpoint+ `tracks/${id}/comments`,this.options)
   }
-  getUser(id):Observable<user>{
-    return this.http.get<user>(this.endpoint+ 'users/' + id  ,this.options)
+  getUser(id):Observable<User>{
+    return this.http.get<User>(this.endpoint+ 'users/' + id  ,this.options)
   }
 
   getTrackForUser(id):Observable<TracksObject[]>{
     return this.http.get<TracksObject[]>(this.endpoint+ `users/${id}/tracks` ,this.options)
   }
-  getDataUser(id):Observable<[user,TracksObject[]]>{
+  getDataUser(id):Observable<[User,TracksObject[]]>{
     return combineLatest([
        this.getUser(id),
        this.getTrackForUser(id)

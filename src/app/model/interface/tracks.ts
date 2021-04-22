@@ -16,7 +16,7 @@ export interface TrackCardObject {
   stream:boolean,
   timeSongbuffer:any
 }
-export interface trackComment {
+export interface TrackComment {
   id: number,
   body: string ,
   created_at: string,
