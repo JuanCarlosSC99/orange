@@ -25,6 +25,8 @@ export class CardSongComponent implements OnInit {
 
   start(){
     this.store.select('track').subscribe((track) => {
+        console.log(track.trackCard);
+
       this.status = { hasData: false, isPause: true }
       if (typeof track.trackData  != undefined &&
           typeof this.data !=  undefined   &&
@@ -41,11 +43,13 @@ export class CardSongComponent implements OnInit {
   play(id) {
     if (this.status.hasData) {
       !this.status.isPause ? this.pause() : this.playSong()
+      console.log('Here'+!this.status.isPause ? this.pause() : this.playSong());
     } else {
       this.onPlay.emit({ status: !this.status.hasData, id: id, data: this.data })
       this.loadding = true;
     }
   }
+
   pause() {
     this.store.dispatch(new PauseAction())
   }

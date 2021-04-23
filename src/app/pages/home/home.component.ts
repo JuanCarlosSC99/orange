@@ -3,9 +3,6 @@ import { Tracks } from '../../model/interface/tracks';
 import { StoreTrack } from './../../store/store.structure';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
-
-
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

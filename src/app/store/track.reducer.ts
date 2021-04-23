@@ -3,13 +3,13 @@ import { LOAD, PAUSE, PLAY } from 'src/app/store/track.action';
 import { ActionsTrack } from './track.action';
 import { StoreTrack } from './store.structure';
 
-const inictialState:StoreTrack = {
+export const initialState:StoreTrack = {
   trackData: null,
   trackCard:{on:false ,status:false},
   urlSong: ''
 }
 
-export function trackReducer(state:StoreTrack = inictialState, action: ActionsTrack  ){
+export function trackReducer(state:StoreTrack = initialState, action: ActionsTrack  ){
   console.log('10')
   switch (action.type) {
 
