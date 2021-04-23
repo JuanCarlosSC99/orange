@@ -16,21 +16,21 @@ export function trackReducer(state:StoreTrack = inictialState, action: ActionsTr
     case LOAD:
       return  {
         trackData:action.payload.trackData,
-        trackCardObject:action.payload.trackCard,
+        trackCard:action.payload.trackCard,
         urlSong:action.payload.urlSong
       }
   ////////////////////
     case PAUSE:
       return {
         trackData: state.trackData,
-        trackCardObject:{on: state.trackCard.on , status:false} ,
+        trackCard:{on: state.trackCard.on , status:false} ,
         urlSong: state.urlSong
       }
   // /////////////////////////
     case PLAY:
       return {
         trackData: state.trackData,
-        trackCardObject:{on: state.trackCard.on , status:true} ,
+        trackCard:{on: state.trackCard.on , status:true} ,
         urlSong: state.urlSong
       }
 

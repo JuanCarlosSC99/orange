@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
         this.data = track.trackData
         this.url = track.urlSong
       }else{
+        console.log(track);
         this.on = track.trackCard.on
       }
      });
