@@ -14,36 +14,29 @@ import { Tracks } from 'src/app/model/interface/tracks';
 export class CardSongComponent implements OnInit {
 
   @Input() data: Tracks;
-  @Output() onPlay: EventEmitter<any> = new EventEmitter()
-  public status: { hasData: boolean, isPause: boolean }
-  public loadding =  false
+  @Output() onPlay: EventEmitter<any> = new EventEmitter();
+  public status: { hasData: boolean, isPause: boolean };
+  public loadding =  false;
 
-  constructor
-    (private store: Store<{ track: StoreTrack }>,private router: Router) {}
+  constructor (private store: Store<{ track: StoreTrack }>,private router: Router) {}
 
   ngOnInit(): void { this.start() }
 
   start(){
     this.store.select('track').subscribe((track) => {
-        console.log(track.trackCard);
 
       this.status = { hasData: false, isPause: true }
-      if (typeof track.trackData  != undefined &&
-          typeof this.data !=  undefined   &&
-          track.trackData != null
-          ) {
-        if (track.trackData.id == this.data.id) {
+      if ((track.trackData && this.data) && (track.trackData.id == this.data.id)){
+        console.log(`Dentro: ${track.trackData.id}`);
           this.status = { hasData: track.trackCard.on, isPause: !track.trackCard.status }
           this.loadding = false;
-        }
       }
     })
   }
 
   play(id) {
     if (this.status.hasData) {
-      !this.status.isPause ? this.pause() : this.playSong()
-      console.log('Here'+!this.status.isPause ? this.pause() : this.playSong());
+      this.status.isPause ?  this.playSong() : this.pause();
     } else {
       this.onPlay.emit({ status: !this.status.hasData, id: id, data: this.data })
       this.loadding = true;
