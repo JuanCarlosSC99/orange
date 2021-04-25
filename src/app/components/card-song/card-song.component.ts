@@ -27,7 +27,6 @@ export class CardSongComponent implements OnInit {
 
       this.status = { hasData: false, isPause: true }
       if ((track.trackData && this.data) && (track.trackData.id == this.data.id)){
-        console.log(`Dentro: ${track.trackData.id}`);
           this.status = { hasData: track.trackCard.on, isPause: !track.trackCard.status }
           this.loadding = false;
       }
