@@ -13,12 +13,13 @@ export class CommetsComponent implements OnInit {
   public arrayComment:TrackComment[] = [];
 
   constructor(public track: TracksService,private store: Store<{ track: StoreTrack }>  ) {
+  }
+  
+  ngOnInit(): void {
     this.store.select('track').subscribe((track)=>{
       this.getCommet(track.trackData.id)
     })
   }
-
-  ngOnInit(): void {}
 
   getCommet(id: number){
     this.track.getComment(id,15).subscribe((comments:TrackComment[])=>{this.arrayComment = comments})

@@ -15,6 +15,8 @@ export class HomeComponent implements OnInit {
   public url: string;
   public find: string;
 
+  private prueba = 'string';
+
   constructor(private store: Store<{ track:StoreTrack }>){ }
 
   ngOnInit(): void {
@@ -30,3 +32,5 @@ export class HomeComponent implements OnInit {
      });
   }
 }
+
+

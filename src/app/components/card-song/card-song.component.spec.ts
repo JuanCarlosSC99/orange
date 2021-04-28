@@ -17,15 +17,16 @@ describe('CardSongComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
+          declarations: [ CardSongComponent ],
           imports: [RouterTestingModule],
           providers: [
-            CardSongComponent,
             provideMockStore({ initialState: firstState }),
           ],
         });
         
         store = TestBed.inject(MockStore);
-        component = TestBed.inject(CardSongComponent);
+        // component = TestBed.inject(CardSongComponent);
+        component = TestBed.createComponent(CardSongComponent).componentInstance;
   
         store.setState({
           trackData: {
