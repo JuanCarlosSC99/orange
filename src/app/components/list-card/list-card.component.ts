@@ -1,3 +1,4 @@
+import { TrackStream } from './../../model/interface/tracks';
 
 
 import { LoadAction } from './../../store/track.action';
@@ -33,7 +34,7 @@ export class ListCardComponent implements OnInit {
     private route: ActivatedRoute,
     private track: TracksService) {
       if(this.route.snapshot.params.find){
-        console.log(this.route.snapshot.params.find)
+        // console.log(this.route.snapshot.params.find)
         this.find = this.route.snapshot.params.find
       }
     }
@@ -48,17 +49,21 @@ export class ListCardComponent implements OnInit {
     }else{
       this.loadding = true;
       if(this.find){
-        this.track.getTrack(this.limit,this.find).subscribe((x:Tracks[])=>{ this.data = x; this.loadding = false})
+        this.track.getTrack(this.limit,this.find).subscribe((tracks:Tracks[])=>{ this.data = tracks; this.loadding = false})
       }else{
-        this.track.getTrack(this.limit).subscribe((x:Tracks[])=>{
-          this.data = x; this.loadding = false
+        this.track.getTrack(this.limit).subscribe((tracks:Tracks[])=>{
+          this.data = tracks; this.loadding = false
         })
       }
     }
   }
+
   action(e:chillObjet){
-    this.track.getSong(e.id).subscribe(x=>{},(err)=>{
-      this.store.dispatch(new LoadAction({trackData:e.data,urlSong:err.url, trackCard:{on:e.status, status:true}}))
+    this.track.getSong(e.id).subscribe((track: TrackStream) => {
+      this.store.dispatch(new LoadAction({trackData:e.data,urlSong:track.http_mp3_128_url, trackCard:{on:e.status, status:true}}))
+    },(err)=>{
+      // console.log({err});
+      // this.store.dispatch(new LoadAction({trackData:e.data,urlSong:err.url, trackCard:{on:e.status, status:true}}))
     })
   }
 

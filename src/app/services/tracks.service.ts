@@ -28,7 +28,7 @@ export class TracksService {
     return this.http.get(this.baseUrl+ 'tracks' ,this.options)
   }
   getSong(id){
-    return this.http.get(this.baseUrl+ `tracks/${id}/stream`  ,this.options)
+    return this.http.get(this.baseUrl+ `tracks/${id}/streams`  ,this.options)
   }
   getComment(id:number, limit?:number){
     if(limit){
