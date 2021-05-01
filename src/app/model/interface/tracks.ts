@@ -36,6 +36,11 @@ export interface TrackComment {
     avatar_url: string
   }
 }
+export interface TrackInformation {
+  status: boolean,
+  id: string,
+  data: Tracks
+}
 
 
 

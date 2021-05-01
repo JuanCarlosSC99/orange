@@ -1,7 +1,7 @@
 <div class="content " [ngClass]="on ? 'list-song': ''"
 (scroll)="onScrollDown(cont.scrollTop,cont.scrollTopMax)" #cont>
 <div *ngFor="let item of data" class="slide-top" >
-  <app-card-song  [data]="item" (onPlay)="action($event)" *ngIf="!loadding"></app-card-song>
+  <app-card-song  [data]="item" (onPlay)="loadTrack($event)" *ngIf="!loadding"></app-card-song>
   <app-spinner *ngIf="loadding"></app-spinner>
   </div>
 </div>
