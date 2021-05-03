@@ -11,32 +11,31 @@ import { Router } from '@angular/router';
   styleUrls: ['./player.component.scss']
 })
 export class PlayerComponent implements OnInit, AfterViewInit {
-  @ViewChild("audioPlayer") audio:ElementRef<HTMLAudioElement>
-  public url:string
-  public data:Tracks
-  public status :{hasData:boolean , isPause:boolean}
+  @ViewChild("audioPlayer") audio: ElementRef<HTMLAudioElement>
+  public url: string
+  public data: Tracks
+  public status: { hasData: boolean, isPause: boolean }
 
 
-  constructor(private store: Store<{ track: StoreTrack }>,private router: Router,) {}
+  constructor(private store: Store<{ track: StoreTrack }>, private router: Router,) { }
 
   ngOnInit(): void {
     this.start()
   }
-  ngAfterViewInit(){
+  ngAfterViewInit(): void {
     this.audio.nativeElement.play();
   }
 
-  start(){
+  start() {
     this.store.select('track').subscribe((track) => {
-      this.status = {hasData:false,isPause:true}
+      this.status = { hasData: false, isPause: true }
       if (track.trackData) {
         this.data = track.trackData;
-        this.url =  track.urlSong;
-        if (track.trackData.id == this.data.id) {
-          this.status = {hasData:track.trackCard.on,isPause:!track.trackCard.status}
-          if (this.audio !=  undefined){
-            this.status.isPause ? this.audio.nativeElement.pause(): this.audio.nativeElement.play();
-          }
+        this.url = track.urlSong;
+        this.status = { hasData: track.trackCard.on, isPause: !track.trackCard.status }
+        if (this.audio != undefined) {
+          console.log(this.audio);
+          this.status.isPause ? this.audio.nativeElement.pause() : this.audio.nativeElement.play();
         }
       }
     })
@@ -44,8 +43,8 @@ export class PlayerComponent implements OnInit, AfterViewInit {
 
 
   play() {
-    if(this.status.hasData){
-      !this.status.isPause ? this.pause() : this.playSong()
+    if (this.status.hasData) {
+      this.status.isPause ? this.playSong() : this.pause()
     }
   }
   pause() {
