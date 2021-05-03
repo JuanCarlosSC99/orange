@@ -113,7 +113,7 @@ describe('ListCardComponent', () => {
         store.scannedActions$.subscribe(action => {
             expect(action.type).toEqual(LOAD);
             expect(action['payload']).toEqual(trackInformation);
-        })
+        });
     });
 
 });
