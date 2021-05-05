@@ -8,14 +8,14 @@ import { initialState } from './../../store/track.reducer';
 import { ListCardComponent } from './list-card.component';
 import { TestBed } from "@angular/core/testing";
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 
 describe('ListCardComponent', () => {
 
     let component: ListCardComponent;
     let service: TracksService;
     let store: MockStore;
-    let find = 'text to search';
+    let search = 'text to search';
     let tracks: Tracks[] = [{
         artwork_url: 'string',
         id: 1,
@@ -55,7 +55,7 @@ describe('ListCardComponent', () => {
                 {
                     provide: ActivatedRoute,
                     useValue: {
-                        snapshot: { params: { find: find } }
+                        snapshot: { params: { find: search } }
                     }
                 },
                 provideMockStore({ initialState: initialState }),
@@ -66,32 +66,31 @@ describe('ListCardComponent', () => {
         component = TestBed.createComponent(ListCardComponent).componentInstance;
         service = TestBed.inject(TracksService);
 
-        spyOn(service, 'getTrack').and.callFake(() => {
-            return of(tracks);
-        });
+            spyOn(service, 'getTrack').and.returnValues(of(tracks))
 
     });
 
     it('Debe obtener el parámetro de búsqueda desde la url', () => {
-        expect(component.find).toEqual(find);
+        expect(component.search).toEqual(search);
     });
 
     it('Debe asignar el valor de "@Input() arrayTrackForUser" a la propiedad "data" (si viene con datos)', () => {
+        service.getTrack = jasmine.createSpy().and.returnValue(of([]));
         component.arrayTrackForUser = tracks;
         component.ngOnInit();
         expect(component.data).toEqual(tracks);
         expect(component.data.length).toEqual(1);
     });
 
-    it('Debe asignar el valor a la propiedad "data" desde un request si "arrayTrackForUser" no viene con datos y la propiedad "find" sí tiene datos', () => {
-        component.find = find;
+    it('Debe asignar el valor a la propiedad "data" desde un request si "arrayTrackForUser" no viene con datos y la propiedad "search" sí tiene datos', () => {
+        component.search = search;
         component.ngOnInit();
         expect(component.data).toEqual(tracks);
         expect(component.data.length).toEqual(1);
     });
 
-    it('Debe asignar el valor a la propiedad "data" desde un request si "arrayTrackForUser" y "find" no vienen con datos', () => {
-        component.find = '';
+    it('Debe asignar el valor a la propiedad "data" desde un request si "arrayTrackForUser" y "search" no vienen con datos', () => {
+        component.search = '';
         component.ngOnInit();
         expect(component.data).toEqual(tracks);
         expect(component.data.length).toEqual(1);

@@ -1,12 +1,14 @@
+.loading-spinner {
+  text-align: center;
 
-.load{
-  display: flex;
-  width: 10em;
-  height: 10em;
-  position: absolute;
-  top: 40%;
-  justify-content: center;
-  flex-direction: column;
-  left: 45%;
+  & .load {
+    // display: flex;
+    width: 7em;
+    height: 7em;
+    // position: absolute;
+    // top: 40%;
+    // justify-content: center;
+    // flex-direction: column;
+    // left: 45%;
+  }
 }
-

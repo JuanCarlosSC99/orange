@@ -1,13 +1,13 @@
-import { TrackStream, TrackInformation } from './../../model/interface/tracks';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
-
+import { Store } from '@ngrx/store';
 import { LoadAction } from './../../store/track.action';
 import { StoreTrack } from './../../store/store.structure';
-import { Tracks } from '../../model/interface/tracks';
+
 import { TracksService } from './../../services/tracks.service';
-import { Component, Input, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { ActivatedRoute } from '@angular/router';
+import { TrackStream, TrackInformation } from './../../model/interface/tracks';
+import { Tracks } from '../../model/interface/tracks';
 @Component({
   selector: 'app-list-card',
   templateUrl: './list-card.component.html',
@@ -18,36 +18,33 @@ export class ListCardComponent implements OnInit {
   @Input() arrayTrackForUser?: Tracks[];
   public data: Tracks[] = [];
   public on: boolean = false;
-  public loadding = false;
-  public find: string;
-  public limit = 25;
+  public loading = false;
+  public search = '';
+  // public limit = 25;
+
   constructor(
     private store: Store<{ track: StoreTrack }>,
     private route: ActivatedRoute,
     private track: TracksService) {
     if (this.route.snapshot.params.find) {
       // console.log(this.route.snapshot.params.find)
-      this.find = this.route.snapshot.params.find
+      this.search = this.route.snapshot.params.find
+      
     }
   }
 
   ngOnInit(): void {
+    if (this.arrayTrackForUser) {
+      this.data = this.arrayTrackForUser;
+    }
     this.getTrack()
   }
   getTrack() {
-
-    if (this.arrayTrackForUser) {
-      this.data = this.arrayTrackForUser;
-    } else {
-      this.loadding = true;
-      if (this.find) {
-        this.track.getTrack(this.limit, this.find).subscribe((tracks: Tracks[]) => { this.data = tracks; this.loadding = false })
-      } else {
-        this.track.getTrack(this.limit).subscribe((tracks: Tracks[]) => {
-          this.data = tracks; this.loadding = false
-        })
-      }
-    }
+    this.loading = true;
+    this.track.getTrack(this.search).subscribe((tracks: Tracks[]) => {
+      this.data.push(...tracks);
+      this.loading = false
+    });
   }
 
   loadTrack(e: TrackInformation) {
@@ -61,9 +58,21 @@ export class ListCardComponent implements OnInit {
 
   onScrollDown(state: number, max: number) {
     if ((max - 100) < state) {
-      this.limit = this.limit + 15;
+      // this.limit = this.limit + 15;
       this.getTrack()
     }
+    console.log(`state: ${state}, max: ${max}`);
+
   }
+
+  onScroll() {
+    // let scrollState = element.scrollTop;
+    // let scrollMax = element.scrollHeight - element.scrollWidth;
+    // console.log(`state: ${scrollState}, max: ${scrollMax}`);
+    this.getTrack();
+    console.log('Hizo scroll');
+  }
+
+
 }
 

@@ -1,6 +1,6 @@
 .content{
   width: 100%;
-  overflow-x:auto ;
+  height: 88%;
   &.row{
     display: flex;
     & .player{
@@ -8,6 +8,7 @@
     }
     & .list{
       width: 78%;
+      height: 100%;
     }
   }
 }
